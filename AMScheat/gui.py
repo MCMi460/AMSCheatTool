@@ -36,11 +36,15 @@ class GUI(Ui_Layout):
         self.lineEdit_7.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_7))
         self.lineEdit_8.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_8))
         self.lineEdit_9.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_9))
+        self.lineEdit_10.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_10))
+        self.lineEdit_11.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_11))
+        self.lineEdit_12.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_12))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
         self.checkBox_2.stateChanged.connect(lambda:self.checkOptional((self.checkBox_2,self.lineEdit_7,)))
         self.checkBox_4.stateChanged.connect(lambda:self.checkOptional((self.checkBox_4,self.lineEdit_9,), reverse = True))
+        self.checkBox_5.stateChanged.connect(lambda:self.checkOptional((self.checkBox_5,self.lineEdit_12,)))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
@@ -115,6 +119,14 @@ class GUI(Ui_Layout):
             R = overHex(self.lineEdit_8.text()),
             V = self.lineEdit_9.text(),
             end = self.checkBox_4.isChecked(),
+            )
+            + '\n'
+            )
+        if e == 4:
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.loadRegisterStatic(
+            R = overHex(self.lineEdit_10.text()),
+            V = self.lineEdit_11.text() + (self.lineEdit_12.text() if self.lineEdit_12.isEnabled() else ''),
             )
             + '\n'
             )

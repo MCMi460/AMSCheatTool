@@ -19,6 +19,7 @@ def isHex(string):
     return True if string else False
 
 def overHex(char):
+    char = char[:1]
     if not char.lower() in '0123456789abcdef':
         char = '0'
     return char
@@ -40,4 +41,9 @@ class Cheat():
     def loop(R:overHex, V:str, end = False):
         return ('3%s0%s0000' % (int(end), R)
         + ((' %s' % V[:8]) if not end else '')
+        )
+
+    def loadRegisterStatic(R:overHex, V:str):
+        return ('400%s0000 %s' % (R, V[:8])
+        + ((' %s' % V[8:]) if len(V) > 8 else '')
         )
