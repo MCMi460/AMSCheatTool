@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Layout</class>
+ <widget class="QWidget" name="Layout">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>AMSCheatTool</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>601</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Cheat Editor</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>321</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>261</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>0x0: Store Static Value to Memory</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x1: Begin Conditional Block</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x2: End Conditional Block</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x3: Start/End Loop</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x4: Load Register with Static Value</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x5: Load Register with Memory Value</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x6: Store Static Value to Register Memory Address</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x7: Legacy Arithmetic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x8: Begin Keypress Conditional Block</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0x9: Perform Arithmetic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0xA: Store Register to Memory Address</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>460</y>
+        <width>261</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>60</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Code Types</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>261</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>41</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Width:</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>50</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Main</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>50</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Heap</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>70</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Alias</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_4">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>70</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Aslr</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Region:</string>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spinBox">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>20</y>
+          <width>44</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>8</number>
+        </property>
+        <property name="singleStep">
+         <number>2</number>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>100</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="maxLength">
+         <number>1</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>100</y>
+          <width>101</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Register Offset:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>130</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Immediate Offset:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>130</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>0000000000</string>
+        </property>
+        <property name="maxLength">
+         <number>10</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>170</y>
+          <width>221</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Value to Write:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>200</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>00000000</string>
+        </property>
+        <property name="maxLength">
+         <number>8</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_4">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>200</y>
+          <width>91</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>00000000</string>
+        </property>
+        <property name="maxLength">
+         <number>8</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>230</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Enabled</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>0</y>
+       <width>281</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>261</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>470</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Copy</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>470</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset Output</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Pythonic</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Settings</string>
+    </attribute>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
