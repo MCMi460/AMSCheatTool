@@ -10,6 +10,10 @@ class GUI(Ui_Layout):
         self.setup()
 
     def setup(self):
+        # plainTextEdit
+        m = QFontMetrics(self.plainTextEdit.font())
+        self.plainTextEdit.setFixedWidth(m.maxWidth() * 28)
+
         # comboBox
         self.comboBox.currentIndexChanged.connect(self.switchStackedWidget)
 
