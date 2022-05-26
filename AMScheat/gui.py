@@ -43,10 +43,23 @@ class GUI(Ui_Layout):
     def add(self, *args):
         e = self.stackedWidget.currentIndex()
         if e == 0:
+            for instance in self.page.children():
+                if isinstance(instance, QRadioButton):
+                    if instance.isChecked():
+                        n = instance.text()
+                        if n == 'Main':
+                            region = Region.main
+                        elif n == 'Heap':
+                            region = Region.heap
+                        elif n == 'Alias':
+                            region = Region.alias
+                        elif n == 'Aslr':
+                            region = Region.aslr
+                        break
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.storeStatic(
             T = str(self.spinBox.value()),
-            M = Region.main,
+            M = region,
             R = self.lineEdit.text(),
             A = self.lineEdit_2.text(),
             V = self.lineEdit_3.text() + (self.lineEdit_4.text() if self.lineEdit_4.isEnabled() else ''),
