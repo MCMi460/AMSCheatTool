@@ -36,3 +36,8 @@ class Cheat():
 
     def endCondition(X:bool):
         return '2%s000000' % int(X)
+
+    def loop(R:overHex, V:str, end = False):
+        return ('3%s0%s0000' % (int(end), R)
+        + ((' %s' % V[:8]) if not end else '')
+        )

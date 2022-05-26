@@ -25,10 +25,13 @@ class GUI(Ui_Layout):
         self.lineEdit_5.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_5))
         self.lineEdit_6.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_6))
         self.lineEdit_7.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_7))
+        self.lineEdit_8.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_8))
+        self.lineEdit_9.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_9))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
         self.checkBox_2.stateChanged.connect(lambda:self.checkOptional((self.checkBox_2,self.lineEdit_7,)))
+        self.checkBox_4.stateChanged.connect(lambda:self.checkOptional((self.checkBox_4,self.lineEdit_9,), reverse = True))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
@@ -38,14 +41,18 @@ class GUI(Ui_Layout):
         self.switchStackedWidget(0)
 
     def reset(self):
-        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4):
+        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9):
             i.setText('0' * i.maxLength())
 
+        self.spinBox.setValue(1)
+        self.spinBox_2.setValue(1)
         self.radioButton.setChecked(True)
         self.radioButton_5.setChecked(True)
         self.checkBox.setChecked(False)
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
+        self.comboBox_2.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
         self.stackedWidget.setCurrentIndex(index)
@@ -64,7 +71,7 @@ class GUI(Ui_Layout):
             + Cheat.storeStatic(
             T = str(self.spinBox.value()),
             M = region,
-            R = self.lineEdit.text(),
+            R = overHex(self.lineEdit.text()),
             A = self.lineEdit_2.text(),
             V = self.lineEdit_3.text() + (self.lineEdit_4.text() if self.lineEdit_4.isEnabled() else ''),
             )
@@ -90,6 +97,15 @@ class GUI(Ui_Layout):
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.endCondition(
             X = self.checkBox_3.isChecked(),
+            )
+            + '\n'
+            )
+        elif e == 3:
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.loop(
+            R = overHex(self.lineEdit_8.text()),
+            V = self.lineEdit_9.text(),
+            end = self.checkBox_4.isChecked(),
             )
             + '\n'
             )
@@ -120,8 +136,9 @@ class GUI(Ui_Layout):
         if len(n) < m:
             line.setText(('0' * (m - len(n))) + n)
 
-    def checkOptional(self, check):
+    def checkOptional(self, check, reverse = False):
         n = check[0].isChecked()
+        if reverse: n = not n
         for i in check[1:]:
             i.setEnabled(n)
 
