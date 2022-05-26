@@ -12,11 +12,11 @@ class GUI(Ui_Layout):
     def setup(self):
         # plainTextEdit
         for i in range(1,21):
-            font = QFont()
-            font.setPointSize(i)
-            self.plainTextEdit.setFont(font)
-            self.plainTextEdit.setFixedWidth(QFontMetrics(self.plainTextEdit.font()).maxWidth() * 26)
-            if self.plainTextEdit.width() > 240:
+            font = QFont('Arial', i)
+            size = QFontMetrics(font).width('00000000' * 6)
+            if size > 240:
+                self.plainTextEdit.setFont(font)
+                self.plainTextEdit.setFixedWidth(size)
                 break
 
         # comboBox
