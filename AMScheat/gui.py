@@ -11,8 +11,13 @@ class GUI(Ui_Layout):
 
     def setup(self):
         # plainTextEdit
-        m = QFontMetrics(self.plainTextEdit.font())
-        self.plainTextEdit.setFixedWidth(m.maxWidth() * 28)
+        for i in range(1,21):
+            font = QFont()
+            font.setPointSize(i)
+            self.plainTextEdit.setFont(font)
+            self.plainTextEdit.setFixedWidth(QFontMetrics(self.plainTextEdit.font()).maxWidth() * 26)
+            if self.plainTextEdit.width() > 240:
+                break
 
         # comboBox
         self.comboBox.currentIndexChanged.connect(self.switchStackedWidget)
