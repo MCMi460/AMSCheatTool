@@ -15,29 +15,41 @@ class GUI(Ui_Layout):
 
         # spinBox
         self.spinBox.valueChanged.connect(lambda:self.checkWidth(self.spinBox))
+        self.spinBox_2.valueChanged.connect(lambda:self.checkWidth(self.spinBox_2))
 
         # lineEdit
         self.lineEdit.editingFinished.connect(lambda:self.checkRegister(self.lineEdit))
         self.lineEdit_2.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_2))
         self.lineEdit_3.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_3))
         self.lineEdit_4.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_4))
+        self.lineEdit_5.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_5))
+        self.lineEdit_6.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_6))
+        self.lineEdit_7.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_7))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
+        self.checkBox_2.stateChanged.connect(lambda:self.checkOptional((self.checkBox_2,self.lineEdit_7,)))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
+        self.pushButton_2.clicked.connect(self.clear)
+        self.pushButton.clicked.connect(self.copy)
 
-        self.reset()
+        self.switchStackedWidget(0)
 
     def reset(self):
         for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4):
             i.setText('0' * i.maxLength())
 
         self.radioButton.setChecked(True)
+        self.radioButton_5.setChecked(True)
+        self.checkBox.setChecked(False)
+        self.checkBox_2.setChecked(False)
+        self.checkBox_3.setChecked(False)
 
     def switchStackedWidget(self, index):
         self.stackedWidget.setCurrentIndex(index)
+        self.comboBox.setCurrentText([ self.comboBox.itemText(i) for i in range(self.comboBox.count() )][index])
         self.reset()
 
     def add(self, *args):
@@ -46,15 +58,7 @@ class GUI(Ui_Layout):
             for instance in self.page.children():
                 if isinstance(instance, QRadioButton):
                     if instance.isChecked():
-                        n = instance.text()
-                        if n == 'Main':
-                            region = Region.main
-                        elif n == 'Heap':
-                            region = Region.heap
-                        elif n == 'Alias':
-                            region = Region.alias
-                        elif n == 'Aslr':
-                            region = Region.aslr
+                        region = Region[instance.text().lower()]
                         break
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.storeStatic(
@@ -66,6 +70,37 @@ class GUI(Ui_Layout):
             )
             + '\n'
             )
+        elif e == 1:
+            for instance in self.page_2.children():
+                if isinstance(instance, QRadioButton):
+                    if instance.isChecked():
+                        region = Region[instance.text().lower()]
+                        break
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.beginCondition(
+            T = str(self.spinBox_2.value()),
+            M = region,
+            C = self.comboBox_2.currentIndex() + 1,
+            A = self.lineEdit_5.text(),
+            V = self.lineEdit_6.text() + (self.lineEdit_7.text() if self.lineEdit_7.isEnabled() else ''),
+            )
+            + '\n'
+            )
+        elif e == 2:
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.endCondition(
+            X = self.checkBox_3.isChecked(),
+            )
+            + '\n'
+            )
+
+    def clear(self):
+        self.plainTextEdit.clear()
+
+    def copy(self):
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(self.plainTextEdit.toPlainText(), mode = cb.Clipboard)
 
     def checkWidth(self, spin):
         n = spin.value()

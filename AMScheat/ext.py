@@ -25,6 +25,14 @@ def overHex(char):
 
 class Cheat():
     def storeStatic(T:str, M:Region, R:overHex, A:str, V:str):
-        return ('0%s%s%s00%s %s %s' % (T[:1], M.value - 1, R, A[:2], A[2:], V[:8])
+        return ('0%s%s%s0000 %s %s' % (T[:1], M.value - 1, R, A[:8], V[:8])
         + ((' %s' % V[8:]) if len(V) > 8 else '')
         )
+
+    def beginCondition(T:str, M:Region, C:str, A:str, V:str):
+        return ('1%s%s%s0000 %s %s' % (T[:1], M.value - 1, C, A[:8], V[:8])
+        + ((' %s' % V[8:]) if len(V) > 8 else '')
+        )
+
+    def endCondition(X:bool):
+        return '2%s000000' % int(X)
