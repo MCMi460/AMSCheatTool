@@ -201,7 +201,7 @@ class GUI(Ui_Layout):
                 n = n.replace(char, '')
         if len(n) < m:
             if negative and line.text()[0] == '-':
-                n = '-' + n + ('0' * (m - len(n)))
+                n = '-' + ('0' * (m - len(n) - 1)) + n
             else:
                 n = ('0' * (m - len(n))) + n
             line.setText(n)
