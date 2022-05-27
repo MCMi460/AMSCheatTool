@@ -44,6 +44,7 @@ class GUI(Ui_Layout):
         self.lineEdit_14.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_14))
         # Conv lines
         self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
+        self.convEdit_2.editingFinished.connect(lambda:self.checkRegister(self.convEdit_2))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
@@ -59,12 +60,18 @@ class GUI(Ui_Layout):
         # Conv pushes
         self.pushButton_4.clicked.connect(lambda:self.label_21.setText('Dec -> Hex: %s' % hex(self.spinBox_4.value()))) # Dec to Hex
         self.pushButton_5.clicked.connect(lambda:self.label_22.setText('Hex -> Dec: %s' % (int('0x' + self.convEdit.text(), 0) if not self.convEdit.text()[0] == '-' else int('-0x' + self.convEdit.text()[1:], 0)))) # Hex to Dec
+        self.pushButton_6.clicked.connect(lambda:self.label_23.setText('Flt -> Hex: %s' % fHex(float(self.doubleSpinBox.value())))) # Flt to Hex
+        self.pushButton_7.clicked.connect(lambda:self.label_24.setText('Hex -> Flt: %s' % struct.unpack('!f', bytes.fromhex(self.convEdit_2.text()))[0])) # Flt to Hex
 
         # Labels
-        def mousePressEvent(event):
-            event.ignore()
-            webbrowser.open('https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md')
-        self.label_19.mousePressEvent = mousePressEvent
+        def e(url):
+            def mousePressEvent(event):
+                event.ignore()
+                webbrowser.open(url)
+            return mousePressEvent
+
+        self.label_19.mousePressEvent = e('https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md')
+        self.label_25.mousePressEvent = e('https://github.com/MCMi460')
 
         # List widget
         self.listWidget.currentRowChanged.connect(self.switchListWidget)
