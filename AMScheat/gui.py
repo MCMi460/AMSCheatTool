@@ -42,6 +42,8 @@ class GUI(Ui_Layout):
         self.lineEdit_12.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_12))
         self.lineEdit_13.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_13))
         self.lineEdit_14.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_14))
+        # Conv lines
+        self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
@@ -54,6 +56,9 @@ class GUI(Ui_Layout):
         self.pushButton_3.clicked.connect(self.add)
         self.pushButton_2.clicked.connect(self.clear)
         self.pushButton.clicked.connect(self.copy)
+        # Conv pushes
+        self.pushButton_4.clicked.connect(lambda:self.label_21.setText('Dec -> Hex: %s' % hex(self.spinBox_4.value()))) # Dec to Hex
+        self.pushButton_5.clicked.connect(lambda:self.label_22.setText('Hex -> Dec: %s' % (int('0x' + self.convEdit.text(), 0) if not self.convEdit.text()[0] == '-' else int('-0x' + self.convEdit.text()[1:], 0)))) # Hex to Dec
 
         # Labels
         def mousePressEvent(event):
@@ -61,7 +66,11 @@ class GUI(Ui_Layout):
             webbrowser.open('https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md')
         self.label_19.mousePressEvent = mousePressEvent
 
+        # List widget
+        self.listWidget.currentRowChanged.connect(self.switchListWidget)
+
         self.switchStackedWidget(0)
+        self.switchListWidget(0)
 
     def reset(self):
         for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14):
@@ -83,8 +92,12 @@ class GUI(Ui_Layout):
 
     def switchStackedWidget(self, index):
         self.stackedWidget.setCurrentIndex(index)
-        self.comboBox.setCurrentText([ self.comboBox.itemText(i) for i in range(self.comboBox.count() )][index])
+        self.comboBox.setCurrentIndex(index)
         self.reset()
+
+    def switchListWidget(self, index):
+        self.stackedWidget_2.setCurrentIndex(index)
+        self.listWidget.setCurrentRow(index)
 
     def add(self, *args):
         e = self.stackedWidget.currentIndex()
@@ -180,14 +193,18 @@ class GUI(Ui_Layout):
         if n % 2 != 0 and n != 1:
             spin.setValue(n - 1)
 
-    def checkRegister(self, line):
+    def checkRegister(self, line, negative = False):
         n = line.text()
         m = line.maxLength()
         for char in n:
             if not isHex(char):
                 n = n.replace(char, '')
         if len(n) < m:
-            line.setText(('0' * (m - len(n))) + n)
+            if negative and line.text()[0] == '-':
+                n = '-' + n + ('0' * (m - len(n)))
+            else:
+                n = ('0' * (m - len(n))) + n
+            line.setText(n)
 
     def checkOptional(self, check, reverse = False):
         n = check[0].isChecked()
