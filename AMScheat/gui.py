@@ -259,6 +259,7 @@ class GUI(Ui_Layout):
             )
             + '\n'
             )
+        self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText().upper())
 
     def clear(self):
         self.plainTextEdit.clear()
