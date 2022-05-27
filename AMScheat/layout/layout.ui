@@ -2370,6 +2370,27 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_62">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>191</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>u8 = 8 bits = 1 Byte
+u16 = 16 bits = 2 Bytes
+u32 = 32 bits = 4 Bytes
+u64 = 64 bits = 8 Bytes
+flt (float) = 4 Bytes
+dbl (Double) = 8 Bytes</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignHCenter|Qt::AlignTop</set>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">

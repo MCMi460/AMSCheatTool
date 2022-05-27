@@ -654,6 +654,10 @@ class Ui_Layout(object):
         self.label_26.setGeometry(QtCore.QRect(10, 499, 191, 51))
         self.label_26.setWordWrap(True)
         self.label_26.setObjectName("label_26")
+        self.label_62 = QtWidgets.QLabel(self.tab_5)
+        self.label_62.setGeometry(QtCore.QRect(10, 220, 191, 101))
+        self.label_62.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.label_62.setObjectName("label_62")
         self.tabWidget.addTab(self.tab_5, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
@@ -842,6 +846,12 @@ class Ui_Layout(object):
         item.setText(_translate("Layout", "Hex to Float"))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.label_26.setText(_translate("Layout", "Disclaimer: These are not good converters"))
+        self.label_62.setText(_translate("Layout", "u8 = 8 bits = 1 Byte\n"
+"u16 = 16 bits = 2 Bytes\n"
+"u32 = 32 bits = 4 Bytes\n"
+"u64 = 64 bits = 8 Bytes\n"
+"flt (float) = 4 Bytes\n"
+"dbl (Double) = 8 Bytes"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("Layout", "Converters"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Layout", "Settings"))
         self.label_19.setText(_translate("Layout", "If you\'d like to learn more about how to create cheat codes, please view Atmosphere\'s guide\n"
