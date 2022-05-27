@@ -48,3 +48,6 @@ class Cheat():
 
     def storeRegisterAddress(T:str, R:overHex, I:bool, o:bool, r:overHex, V:str):
         return '6%s0%s%s%s%s0 %s %s' % (T[:1], R, int(I), int(o), r, V[:8], V[8:])
+
+    def buttonActivator(k:str):
+        return '8%s' % k[:7]

@@ -21,6 +21,7 @@ class GUI(Ui_Layout):
 
         # comboBox
         self.comboBox.currentIndexChanged.connect(self.switchStackedWidget)
+        self.comboBox_3.currentIndexChanged.connect(self.switch8Widget)
 
         # spinBox
         self.spinBox.valueChanged.connect(lambda:self.checkWidth(self.spinBox))
@@ -84,27 +85,26 @@ class GUI(Ui_Layout):
 
         self.switchStackedWidget(0)
         self.switchListWidget(0)
+        self.switch8Widget(0)
 
     def reset(self):
         for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18):
             i.setText('0' * i.maxLength())
 
-        self.spinBox.setValue(1)
-        self.spinBox_2.setValue(1)
-        self.spinBox_3.setValue(1)
-        self.spinBox_5.setValue(1)
-        self.radioButton.setChecked(True)
-        self.radioButton_5.setChecked(True)
-        self.radioButton_9.setChecked(True)
-        self.checkBox.setChecked(False)
-        self.checkBox_2.setChecked(False)
-        self.checkBox_3.setChecked(False)
-        self.checkBox_4.setChecked(False)
-        self.checkBox_5.setChecked(False)
-        self.checkBox_6.setChecked(False)
-        self.checkBox_7.setChecked(False)
-        self.checkBox_8.setChecked(False)
-        self.comboBox_2.setCurrentIndex(0)
+        for n in (self.checkBox,self.checkBox_2,self.checkBox_3,self.checkBox_4,self.checkBox_5,self.checkBox_6,self.checkBox_7,self.checkBox_8):
+            n.setChecked(False)
+
+        for key in (self.h0000001,self.h0000002,self.h0000004,self.h0000008,self.h0000010,self.h0000020,self.h0000040,self.h0000080,self.h0000100,self.h0000200,self.h0000400,self.h0000800,self.h0001000,self.h0002000,self.h0004000,self.h0008000,self.h0010000,self.h0020000,self.h0040000,self.h0080000,self.h0100000,self.h0200000,self.h0400000,self.h0800000,self.h1000000,self.h2000000):
+            key.setChecked(False)
+
+        for t in (self.spinBox,self.spinBox_2,self.spinBox_3,self.spinBox_5):
+            t.setValue(1)
+
+        for r in (self.radioButton,self.radioButton_5,self.radioButton_9):
+            r.setChecked(True)
+
+        for c in (self.comboBox_2,self.comboBox_3):
+            c.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
         self.stackedWidget.setCurrentIndex(index)
@@ -114,6 +114,10 @@ class GUI(Ui_Layout):
     def switchListWidget(self, index):
         self.stackedWidget_2.setCurrentIndex(index)
         self.listWidget.setCurrentRow(index)
+
+    def switch8Widget(self, index):
+        self.stackedWidget_3.setCurrentIndex(index)
+        self.comboBox_3.setCurrentIndex(index)
 
     def add(self, *args):
         e = self.stackedWidget.currentIndex()
@@ -200,6 +204,28 @@ class GUI(Ui_Layout):
             o = self.checkBox_8.isChecked(),
             r = overHex(self.lineEdit_18.text()) if self.lineEdit_18.isEnabled() else '0',
             V = self.lineEdit_16.text() + self.lineEdit_17.text(),
+            )
+            + '\n'
+            )
+        elif e == 7:
+            list = []
+            for instance in self.key.children():
+                if isinstance(instance, QCheckBox):
+                    if instance.isChecked():
+                        list.append(int(instance.objectName()[1:], 16))
+            for instance in self.key_2.children():
+                if isinstance(instance, QCheckBox):
+                    if instance.isChecked():
+                        list.append(int(instance.objectName()[1:], 16))
+            k = 0
+            for item in list:
+                k = k | item
+            k = hex(k)[2:]
+            if len(k) < 7:
+                k = ('0' * (7 - len(k))) + k
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.buttonActivator(
+            k = k,
             )
             + '\n'
             )
