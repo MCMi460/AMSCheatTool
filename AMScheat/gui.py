@@ -29,6 +29,7 @@ class GUI(Ui_Layout):
         self.spinBox_3.valueChanged.connect(lambda:self.checkWidth(self.spinBox_3))
         self.spinBox_5.valueChanged.connect(lambda:self.checkWidth(self.spinBox_5))
         self.spinBox_6.valueChanged.connect(lambda:self.checkWidth(self.spinBox_6))
+        self.spinBox_12.valueChanged.connect(lambda:self.checkWidth(self.spinBox_12))
 
         # lineEdit
         self.lineEdit.editingFinished.connect(lambda:self.checkRegister(self.lineEdit))
@@ -54,6 +55,8 @@ class GUI(Ui_Layout):
         self.lineEdit_39.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_39))
         self.lineEdit_40.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_40))
         self.lineEdit_41.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_41))
+        self.lineEdit_42.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_42))
+        self.lineEdit_43.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_43))
         # Conv lines
         self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
         self.convEdit_2.editingFinished.connect(lambda:self.checkRegister(self.convEdit_2))
@@ -99,7 +102,7 @@ class GUI(Ui_Layout):
         self.switchArithmetic(0)
 
     def reset(self):
-        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18,self.lineEdit_37,self.lineEdit_38,self.lineEdit_39,self.lineEdit_40,self.lineEdit_41):
+        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18,self.lineEdit_37,self.lineEdit_38,self.lineEdit_39,self.lineEdit_40,self.lineEdit_41,self.lineEdit_42,self.lineEdit_43):
             i.setText('0' * i.maxLength())
 
         for n in (self.checkBox,self.checkBox_2,self.checkBox_3,self.checkBox_4,self.checkBox_5,self.checkBox_6,self.checkBox_7,self.checkBox_8,self.checkBox_17):
@@ -108,13 +111,13 @@ class GUI(Ui_Layout):
         for key in (self.h0000001,self.h0000002,self.h0000004,self.h0000008,self.h0000010,self.h0000020,self.h0000040,self.h0000080,self.h0000100,self.h0000200,self.h0000400,self.h0000800,self.h0001000,self.h0002000,self.h0004000,self.h0008000,self.h0010000,self.h0020000,self.h0040000,self.h0080000,self.h0100000,self.h0200000,self.h0400000,self.h0800000,self.h1000000,self.h2000000):
             key.setChecked(False)
 
-        for t in (self.spinBox,self.spinBox_2,self.spinBox_3,self.spinBox_5,self.spinBox_6):
+        for t in (self.spinBox,self.spinBox_2,self.spinBox_3,self.spinBox_5,self.spinBox_6,self.spinBox_12):
             t.setValue(1)
 
         for r in (self.radioButton,self.radioButton_5,self.radioButton_9,self.radioButton_25):
             r.setChecked(True)
 
-        for c in (self.comboBox_2,self.comboBox_3,self.comboBox_6):
+        for c in (self.comboBox_2,self.comboBox_3,self.comboBox_6,self.comboBox_7):
             c.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
@@ -222,6 +225,16 @@ class GUI(Ui_Layout):
             + '\n'
             )
         elif e == 7:
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.legacyArithmetic(
+            T = str(self.spinBox_12.value()),
+            R = overHex(self.lineEdit_42.text()),
+            C = str(self.comboBox_7.currentIndex()),
+            V = self.lineEdit_43.text(),
+            )
+            + '\n'
+            )
+        elif e == 8:
             list = []
             for instance in self.key.children():
                 if isinstance(instance, QCheckBox):
@@ -243,7 +256,7 @@ class GUI(Ui_Layout):
             )
             + '\n'
             )
-        elif e == 8:
+        elif e == 9:
             if not self.radioButton_25.isChecked():
                 s = None
             else:
