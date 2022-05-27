@@ -28,6 +28,7 @@ class GUI(Ui_Layout):
         self.spinBox_2.valueChanged.connect(lambda:self.checkWidth(self.spinBox_2))
         self.spinBox_3.valueChanged.connect(lambda:self.checkWidth(self.spinBox_3))
         self.spinBox_5.valueChanged.connect(lambda:self.checkWidth(self.spinBox_5))
+        self.spinBox_6.valueChanged.connect(lambda:self.checkWidth(self.spinBox_6))
 
         # lineEdit
         self.lineEdit.editingFinished.connect(lambda:self.checkRegister(self.lineEdit))
@@ -48,6 +49,11 @@ class GUI(Ui_Layout):
         self.lineEdit_16.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_16))
         self.lineEdit_17.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_17))
         self.lineEdit_18.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_18))
+        self.lineEdit_37.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_37))
+        self.lineEdit_38.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_38))
+        self.lineEdit_39.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_39))
+        self.lineEdit_40.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_40))
+        self.lineEdit_41.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_41))
         # Conv lines
         self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
         self.convEdit_2.editingFinished.connect(lambda:self.checkRegister(self.convEdit_2))
@@ -59,6 +65,10 @@ class GUI(Ui_Layout):
         self.checkBox_5.stateChanged.connect(lambda:self.checkOptional((self.checkBox_5,self.lineEdit_12,)))
         self.checkBox_6.stateChanged.connect(lambda:self.checkOptional((self.checkBox_6,self.radioButton_9,self.radioButton_10,self.radioButton_11,self.radioButton_12,), reverse = True))
         self.checkBox_8.stateChanged.connect(lambda:self.checkOptional((self.checkBox_8,self.lineEdit_18)))
+        self.checkBox_17.stateChanged.connect(lambda:self.checkOptional((self.checkBox_17,self.lineEdit_40)))
+
+        # Radio buttons
+        self.radioButton_25.toggled.connect(lambda a: self.switchArithmetic(int(not a)))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
@@ -86,24 +96,25 @@ class GUI(Ui_Layout):
         self.switchStackedWidget(0)
         self.switchListWidget(0)
         self.switch8Widget(0)
+        self.switchArithmetic(0)
 
     def reset(self):
-        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18):
+        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18,self.lineEdit_37,self.lineEdit_38,self.lineEdit_39,self.lineEdit_40,self.lineEdit_41):
             i.setText('0' * i.maxLength())
 
-        for n in (self.checkBox,self.checkBox_2,self.checkBox_3,self.checkBox_4,self.checkBox_5,self.checkBox_6,self.checkBox_7,self.checkBox_8):
+        for n in (self.checkBox,self.checkBox_2,self.checkBox_3,self.checkBox_4,self.checkBox_5,self.checkBox_6,self.checkBox_7,self.checkBox_8,self.checkBox_17):
             n.setChecked(False)
 
         for key in (self.h0000001,self.h0000002,self.h0000004,self.h0000008,self.h0000010,self.h0000020,self.h0000040,self.h0000080,self.h0000100,self.h0000200,self.h0000400,self.h0000800,self.h0001000,self.h0002000,self.h0004000,self.h0008000,self.h0010000,self.h0020000,self.h0040000,self.h0080000,self.h0100000,self.h0200000,self.h0400000,self.h0800000,self.h1000000,self.h2000000):
             key.setChecked(False)
 
-        for t in (self.spinBox,self.spinBox_2,self.spinBox_3,self.spinBox_5):
+        for t in (self.spinBox,self.spinBox_2,self.spinBox_3,self.spinBox_5,self.spinBox_6):
             t.setValue(1)
 
-        for r in (self.radioButton,self.radioButton_5,self.radioButton_9):
+        for r in (self.radioButton,self.radioButton_5,self.radioButton_9,self.radioButton_25):
             r.setChecked(True)
 
-        for c in (self.comboBox_2,self.comboBox_3):
+        for c in (self.comboBox_2,self.comboBox_3,self.comboBox_6):
             c.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
@@ -118,6 +129,9 @@ class GUI(Ui_Layout):
     def switch8Widget(self, index):
         self.stackedWidget_3.setCurrentIndex(index)
         self.comboBox_3.setCurrentIndex(index)
+
+    def switchArithmetic(self, index):
+        self.stackedWidget_4.setCurrentIndex(index)
 
     def add(self, *args):
         e = self.stackedWidget.currentIndex()
@@ -226,6 +240,22 @@ class GUI(Ui_Layout):
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.buttonActivator(
             k = k,
+            )
+            + '\n'
+            )
+        elif e == 8:
+            if not self.radioButton_25.isChecked():
+                s = None
+            else:
+                s = overHex(self.lineEdit_41.text())
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.arithmetic(
+            T = str(self.spinBox_6.value()),
+            C = str(self.comboBox_6.currentIndex()),
+            R = overHex(self.lineEdit_37.text()),
+            S = overHex(self.lineEdit_38.text()),
+            s = s,
+            V = self.lineEdit_39.text() + (self.lineEdit_40.text() if self.lineEdit_40.isEnabled() else ''),
             )
             + '\n'
             )

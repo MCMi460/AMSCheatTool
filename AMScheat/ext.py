@@ -51,3 +51,8 @@ class Cheat():
 
     def buttonActivator(k:str):
         return '8%s' % k[:7]
+
+    def arithmetic(T:str, C:str, R:overHex, S:overHex, s:overHex, V:str):
+        return ('9%s%s%s%s%s%s0' % (T[:1], C, R, S, ('0' if s else '1'), (s if s else '0'))
+        + ( ((' %s %s' % (V[:8], V[8:])) if len(V) > 8 else (' %s' % V[:8])) if not s else '')
+        )
