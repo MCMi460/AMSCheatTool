@@ -26,6 +26,7 @@ class GUI(Ui_Layout):
         self.spinBox.valueChanged.connect(lambda:self.checkWidth(self.spinBox))
         self.spinBox_2.valueChanged.connect(lambda:self.checkWidth(self.spinBox_2))
         self.spinBox_3.valueChanged.connect(lambda:self.checkWidth(self.spinBox_3))
+        self.spinBox_5.valueChanged.connect(lambda:self.checkWidth(self.spinBox_5))
 
         # lineEdit
         self.lineEdit.editingFinished.connect(lambda:self.checkRegister(self.lineEdit))
@@ -42,6 +43,10 @@ class GUI(Ui_Layout):
         self.lineEdit_12.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_12))
         self.lineEdit_13.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_13))
         self.lineEdit_14.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_14))
+        self.lineEdit_15.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_15))
+        self.lineEdit_16.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_16))
+        self.lineEdit_17.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_17))
+        self.lineEdit_18.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_18))
         # Conv lines
         self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
         self.convEdit_2.editingFinished.connect(lambda:self.checkRegister(self.convEdit_2))
@@ -52,6 +57,7 @@ class GUI(Ui_Layout):
         self.checkBox_4.stateChanged.connect(lambda:self.checkOptional((self.checkBox_4,self.lineEdit_9,), reverse = True))
         self.checkBox_5.stateChanged.connect(lambda:self.checkOptional((self.checkBox_5,self.lineEdit_12,)))
         self.checkBox_6.stateChanged.connect(lambda:self.checkOptional((self.checkBox_6,self.radioButton_9,self.radioButton_10,self.radioButton_11,self.radioButton_12,), reverse = True))
+        self.checkBox_8.stateChanged.connect(lambda:self.checkOptional((self.checkBox_8,self.lineEdit_18)))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
@@ -80,12 +86,13 @@ class GUI(Ui_Layout):
         self.switchListWidget(0)
 
     def reset(self):
-        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14):
+        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14,self.lineEdit_14,self.lineEdit_15,self.lineEdit_16,self.lineEdit_17,self.lineEdit_18):
             i.setText('0' * i.maxLength())
 
         self.spinBox.setValue(1)
         self.spinBox_2.setValue(1)
         self.spinBox_3.setValue(1)
+        self.spinBox_5.setValue(1)
         self.radioButton.setChecked(True)
         self.radioButton_5.setChecked(True)
         self.radioButton_9.setChecked(True)
@@ -95,6 +102,8 @@ class GUI(Ui_Layout):
         self.checkBox_4.setChecked(False)
         self.checkBox_5.setChecked(False)
         self.checkBox_6.setChecked(False)
+        self.checkBox_7.setChecked(False)
+        self.checkBox_8.setChecked(False)
         self.comboBox_2.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
@@ -179,6 +188,18 @@ class GUI(Ui_Layout):
             M = region,
             R = overHex(self.lineEdit_13.text()),
             A = self.lineEdit_14.text(),
+            )
+            + '\n'
+            )
+        elif e == 6:
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.storeRegisterAddress(
+            T = str(self.spinBox_5.value()),
+            R = overHex(self.lineEdit_15.text()),
+            I = self.checkBox_7.isChecked(),
+            o = self.checkBox_8.isChecked(),
+            r = overHex(self.lineEdit_18.text()) if self.lineEdit_18.isEnabled() else '0',
+            V = self.lineEdit_16.text() + self.lineEdit_17.text(),
             )
             + '\n'
             )

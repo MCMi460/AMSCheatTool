@@ -31,7 +31,7 @@ class Cheat():
     def endCondition(X:bool):
         return '2%s000000' % int(X)
 
-    def loop(R:overHex, V:str, end = False):
+    def loop(R:overHex, V:str, end:bool = False):
         return ('3%s0%s0000' % (int(end), R)
         + ((' %s' % V[:8]) if not end else '')
         )
@@ -45,3 +45,6 @@ class Cheat():
         if M:
             return ('5%s%s%s00%s %s' % (T[:1], M.value - 1, R, A[:2], A[2:10]))
         return ('5%s0%s10%s %s' % (T[:1], R, A[:2], A[2:10]))
+
+    def storeRegisterAddress(T:str, R:overHex, I:bool, o:bool, r:overHex, V:str):
+        return '6%s0%s%s%s%s0 %s %s' % (T[:1], R, int(I), int(o), r, V[:8], V[8:])
