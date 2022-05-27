@@ -19,12 +19,12 @@ def overHex(char):
 
 class Cheat():
     def storeStatic(T:str, M:Region, R:overHex, A:str, V:str):
-        return ('0%s%s%s0000 %s %s' % (T[:1], M.value - 1, R, A[:8], V[:8])
+        return ('0%s%s%s00%s %s %s' % (T[:1], M.value - 1, R, A[:2], A[2:10], V[:8])
         + ((' %s' % V[8:]) if len(V) > 8 else '')
         )
 
     def beginCondition(T:str, M:Region, C:str, A:str, V:str):
-        return ('1%s%s%s0000 %s %s' % (T[:1], M.value - 1, C, A[:8], V[:8])
+        return ('1%s%s%s00%s %s %s' % (T[:1], M.value - 1, C, A[:2], A[2:10], V[:8])
         + ((' %s' % V[8:]) if len(V) > 8 else '')
         )
 
@@ -43,5 +43,5 @@ class Cheat():
 
     def loadRegisterWithMemory(T:str, M:Region, R:overHex, A:str):
         if M:
-            return ('5%s%s%s0000 %s' % (T[:1], M.value - 1, R, A))
-        return ('5%s0%s1000 %s' % (T[:1], R, A))
+            return ('5%s%s%s00%s %s' % (T[:1], M.value - 1, R, A[:2], A[2:10]))
+        return ('5%s0%s10%s %s' % (T[:1], R, A[:2], A[2:10]))

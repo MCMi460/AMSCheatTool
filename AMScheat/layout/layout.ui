@@ -310,15 +310,15 @@
          <rect>
           <x>140</x>
           <y>130</y>
-          <width>81</width>
+          <width>91</width>
           <height>21</height>
          </rect>
         </property>
         <property name="text">
-         <string>00000000</string>
+         <string>0000000000</string>
         </property>
         <property name="maxLength">
-         <number>8</number>
+         <number>10</number>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -552,15 +552,15 @@
          <rect>
           <x>140</x>
           <y>130</y>
-          <width>81</width>
+          <width>91</width>
           <height>21</height>
          </rect>
         </property>
         <property name="text">
-         <string>00000000</string>
+         <string>0000000000</string>
         </property>
         <property name="maxLength">
-         <number>8</number>
+         <number>10</number>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1001,15 +1001,15 @@
          <rect>
           <x>140</x>
           <y>130</y>
-          <width>81</width>
+          <width>91</width>
           <height>21</height>
          </rect>
         </property>
         <property name="text">
-         <string>00000000</string>
+         <string>0000000000</string>
         </property>
         <property name="maxLength">
-         <number>8</number>
+         <number>10</number>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
