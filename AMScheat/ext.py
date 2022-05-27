@@ -4,13 +4,6 @@ from . import *
 
 Region = enum.Enum('Memory Region', 'main heap alias aslr')
 
-codes = [
-'0TMR00AA AAAAAAAA VVVVVVVV (VVVVVVVV)',
-'1TMC00AA AAAAAAAA VVVVVVVV (VVVVVVVV)',
-'2X000000',
-'300R0000 VVVVVVVV',
-]
-
 fHex = lambda value : hex(struct.unpack('I', struct.pack('f', value))[0]) # Basically, just convert float to binary, then convert to an integer, which can be converted to hexadecimal
 def isHex(string):
     for char in string:
@@ -47,3 +40,8 @@ class Cheat():
         return ('400%s0000 %s' % (R, V[:8])
         + ((' %s' % V[8:]) if len(V) > 8 else '')
         )
+
+    def loadRegisterWithMemory(T:str, M:Region, R:overHex, A:str):
+        if M:
+            return ('5%s%s%s0000 %s' % (T[:1], M.value - 1, R, A))
+        return ('5%s0%s1000 %s' % (T[:1], R, A))

@@ -5,6 +5,7 @@ import os
 import time
 import struct
 import enum
+import webbrowser
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *

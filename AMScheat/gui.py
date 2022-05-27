@@ -25,6 +25,7 @@ class GUI(Ui_Layout):
         # spinBox
         self.spinBox.valueChanged.connect(lambda:self.checkWidth(self.spinBox))
         self.spinBox_2.valueChanged.connect(lambda:self.checkWidth(self.spinBox_2))
+        self.spinBox_3.valueChanged.connect(lambda:self.checkWidth(self.spinBox_3))
 
         # lineEdit
         self.lineEdit.editingFinished.connect(lambda:self.checkRegister(self.lineEdit))
@@ -39,32 +40,45 @@ class GUI(Ui_Layout):
         self.lineEdit_10.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_10))
         self.lineEdit_11.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_11))
         self.lineEdit_12.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_12))
+        self.lineEdit_13.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_13))
+        self.lineEdit_14.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_14))
 
         # Optional checks
         self.checkBox.stateChanged.connect(lambda:self.checkOptional((self.checkBox,self.lineEdit_4,)))
         self.checkBox_2.stateChanged.connect(lambda:self.checkOptional((self.checkBox_2,self.lineEdit_7,)))
         self.checkBox_4.stateChanged.connect(lambda:self.checkOptional((self.checkBox_4,self.lineEdit_9,), reverse = True))
         self.checkBox_5.stateChanged.connect(lambda:self.checkOptional((self.checkBox_5,self.lineEdit_12,)))
+        self.checkBox_6.stateChanged.connect(lambda:self.checkOptional((self.checkBox_6,self.radioButton_9,self.radioButton_10,self.radioButton_11,self.radioButton_12,), reverse = True))
 
         # Push buttons
         self.pushButton_3.clicked.connect(self.add)
         self.pushButton_2.clicked.connect(self.clear)
         self.pushButton.clicked.connect(self.copy)
 
+        # Labels
+        def mousePressEvent(event):
+            event.ignore()
+            webbrowser.open('https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/features/cheats.md')
+        self.label_19.mousePressEvent = mousePressEvent
+
         self.switchStackedWidget(0)
 
     def reset(self):
-        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9):
+        for i in (self.lineEdit,self.lineEdit_2,self.lineEdit_3,self.lineEdit_4,self.lineEdit_5,self.lineEdit_6,self.lineEdit_7,self.lineEdit_8,self.lineEdit_9,self.lineEdit_10,self.lineEdit_11,self.lineEdit_12,self.lineEdit_13,self.lineEdit_14):
             i.setText('0' * i.maxLength())
 
         self.spinBox.setValue(1)
         self.spinBox_2.setValue(1)
+        self.spinBox_3.setValue(1)
         self.radioButton.setChecked(True)
         self.radioButton_5.setChecked(True)
+        self.radioButton_9.setChecked(True)
         self.checkBox.setChecked(False)
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
         self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+        self.checkBox_6.setChecked(False)
         self.comboBox_2.setCurrentIndex(0)
 
     def switchStackedWidget(self, index):
@@ -122,11 +136,29 @@ class GUI(Ui_Layout):
             )
             + '\n'
             )
-        if e == 4:
+        elif e == 4:
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.loadRegisterStatic(
             R = overHex(self.lineEdit_10.text()),
             V = self.lineEdit_11.text() + (self.lineEdit_12.text() if self.lineEdit_12.isEnabled() else ''),
+            )
+            + '\n'
+            )
+        elif e == 5:
+            for instance in self.page_6.children():
+                if isinstance(instance, QRadioButton):
+                    if not instance.isEnabled():
+                        region = None
+                        break
+                    if instance.isChecked():
+                        region = Region[instance.text().lower()]
+                        break
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.loadRegisterWithMemory(
+            T = str(self.spinBox_3.value()),
+            M = region,
+            R = overHex(self.lineEdit_13.text()),
+            A = self.lineEdit_14.text(),
             )
             + '\n'
             )
