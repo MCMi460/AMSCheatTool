@@ -7,3 +7,9 @@ venv/
 
 # Qt Creator
 *.autosave
+
+# Compilation
+build/
+dist/
+setup.py
+*.spec
