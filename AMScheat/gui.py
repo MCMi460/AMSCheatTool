@@ -150,7 +150,7 @@ class GUI(Ui_Layout):
             M = region,
             R = overHex(self.lineEdit.text()),
             A = self.lineEdit_2.text(),
-            V = self.lineEdit_3.text() + (self.lineEdit_4.text() if self.lineEdit_4.isEnabled() else ''),
+            V = (self.lineEdit_3.text() + self.lineEdit_4.text()) if self.lineEdit_4.isEnabled() else ('00000000' + self.lineEdit_3.text()),
             )
             + '\n'
             )
@@ -166,7 +166,7 @@ class GUI(Ui_Layout):
             M = region,
             C = self.comboBox_2.currentIndex() + 1,
             A = self.lineEdit_5.text(),
-            V = self.lineEdit_6.text() + (self.lineEdit_7.text() if self.lineEdit_7.isEnabled() else ''),
+            V = (self.lineEdit_6.text() + self.lineEdit_7.text()) if self.lineEdit_7.isEnabled() else ('00000000' + self.lineEdit_6.text()),
             )
             + '\n'
             )
@@ -268,7 +268,7 @@ class GUI(Ui_Layout):
             R = overHex(self.lineEdit_37.text()),
             S = overHex(self.lineEdit_38.text()),
             s = s,
-            V = self.lineEdit_39.text() + (self.lineEdit_40.text() if self.lineEdit_40.isEnabled() else ''),
+            V = (self.lineEdit_39.text() + self.lineEdit_40.text()) if self.lineEdit_40.isEnabled() else ('00000000' + self.lineEdit_39.text()),
             )
             + '\n'
             )
