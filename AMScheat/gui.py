@@ -150,7 +150,7 @@ class GUI(Ui_Layout):
             M = region,
             R = overHex(self.lineEdit.text()),
             A = self.lineEdit_2.text(),
-            V = (self.lineEdit_3.text() + self.lineEdit_4.text()) if self.lineEdit_4.isEnabled() else ('00000000' + self.lineEdit_3.text()),
+            V = self.lineEdit_3.text() + (self.lineEdit_4.text() if self.lineEdit_4.isEnabled() else ''),
             )
             + '\n'
             )
