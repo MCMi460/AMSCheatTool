@@ -57,6 +57,8 @@ class GUI(Ui_Layout):
         self.lineEdit_41.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_41))
         self.lineEdit_42.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_42))
         self.lineEdit_43.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_43))
+        self.lineEdit_19.editingFinished.connect(lambda:self.checkPointer(self.lineEdit_19))
+        self.lineEdit_44.editingFinished.connect(lambda:self.checkRegister(self.lineEdit_44))
         # Conv lines
         self.convEdit.editingFinished.connect(lambda:self.checkRegister(self.convEdit, negative = True))
         self.convEdit_2.editingFinished.connect(lambda:self.checkRegister(self.convEdit_2))
@@ -77,6 +79,7 @@ class GUI(Ui_Layout):
         self.pushButton_3.clicked.connect(self.add)
         self.pushButton_2.clicked.connect(self.clear)
         self.pushButton.clicked.connect(self.copy)
+        self.pushButton_8.clicked.connect(lambda:self.checkPointer(self.lineEdit_19, add = True))
         # Conv pushes
         self.pushButton_4.clicked.connect(lambda:self.label_21.setText('Dec -> Hex: %s' % hex(self.spinBox_4.value()))) # Dec to Hex
         self.pushButton_5.clicked.connect(lambda:self.label_22.setText('Hex -> Dec: %s' % (int('0x' + self.convEdit.text(), 0) if not self.convEdit.text()[0] == '-' else int('-0x' + self.convEdit.text()[1:], 0)))) # Hex to Dec
@@ -291,18 +294,69 @@ class GUI(Ui_Layout):
         if n % 2 != 0 and n != 1:
             spin.setValue(n - 1)
 
-    def checkRegister(self, line, negative = False):
-        n = line.text()
-        m = line.maxLength()
+    def registerCheck(self, text, m, negative = False):
+        n = text
         for char in n:
             if not isHex(char):
                 n = n.replace(char, '')
         if len(n) < m:
-            if negative and line.text()[0] == '-':
+            if negative and text[0] == '-':
                 n = '-' + ('0' * (m - len(n) - 1)) + n
             else:
                 n = ('0' * (m - len(n))) + n
-            line.setText(n)
+            return n
+        return text
+
+    def checkRegister(self, line, negative = False):
+        n = line.text()
+        m = line.maxLength()
+        line.setText(self.registerCheck(n, m, negative))
+
+    def checkPointer(self, line, add = False):
+        n = line.text().lower()
+        brackets = n.count('[')
+        if brackets != n.count(']') or brackets < 1:
+            line.setText('')
+        if not line.text():
+            return
+        t = n[brackets:]
+        if t != n.replace('[', ''):
+            line.setText('')
+        if not line.text():
+            return
+        type = t[:4]
+        t = t[4:].split(']')
+        baseOffset = t[0][1:]
+        regOffsets = []
+        addOffset = ''
+        for i in range(len(t) - 1):
+            i += 1
+            regOffsets.append(t[i][1:])
+        if n[-1] != ']':
+            addOffset = regOffsets[-1]
+            regOffsets.pop(len(regOffsets) - 1)
+        if not addOffset[-1] in ('0','4','8','c'):
+            line.setText('')
+        if not line.text():
+            return
+        try:regOffsets.remove('')
+        except:pass
+        if add:
+            baseOffset = self.registerCheck(baseOffset, 10)
+            regOffsets = [ self.registerCheck(x, 10) for x in regOffsets ]
+            addOffset = self.registerCheck(addOffset, 8)
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.loadRegisterWithMemory(T = str(8), M = Region[type], R = overHex(self.lineEdit_44.text()), A = baseOffset)
+            + '\n')
+            for offset in regOffsets:
+                self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+                + Cheat.loadRegisterWithMemory(T = str(8), M = None, R = overHex(self.lineEdit_44.text()), A = offset)
+                + '\n')
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
+            + Cheat.legacyArithmetic(T = str(8), R = overHex(self.lineEdit_44.text()), C = str(0), V = addOffset)
+            + '\n')
+            self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText().upper())
+            self.tabWidget.setCurrentIndex(0)
 
     def checkOptional(self, check, reverse = False):
         n = check[0].isChecked()
