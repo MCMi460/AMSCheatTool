@@ -193,7 +193,7 @@ class GUI(Ui_Layout):
             self.plainTextEdit.setPlainText(self.plainTextEdit.toPlainText()
             + Cheat.loadRegisterStatic(
             R = overHex(self.lineEdit_10.text()),
-            V = self.lineEdit_11.text() + (self.lineEdit_12.text() if self.lineEdit_12.isEnabled() else ''),
+            V = (self.lineEdit_11.text() + self.lineEdit_12.text()) if self.lineEdit_12.isEnabled() else ('00000000' + self.lineEdit_11.text()),
             )
             + '\n'
             )
